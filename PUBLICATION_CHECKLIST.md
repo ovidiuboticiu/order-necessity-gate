@@ -31,11 +31,11 @@
 ## Before publication
 
 - [ ] Select license.
-- [ ] Create clean GitHub repository, suggested name: `order-necessity-gate`.
-- [ ] Copy only this release-candidate tree into the new repository root.
-- [ ] Run smoke test once from the new repository.
-- [ ] Confirm repository description/topics.
-- [ ] Switch private -> public only after final inspection.
+- [x] Create clean GitHub repository: `order-necessity-gate` (private).
+- [x] Copy only the release-candidate tree into the new repository root.
+- [x] Run smoke test after transfer; all four reference checks passed.
+- [ ] Confirm repository description/topics in GitHub settings.
+- [ ] Switch private -> public only after final inspection and license selection.
 
 ## Suggested repository description
 
