@@ -1,6 +1,6 @@
 # Provenance
 
-This release candidate is a cleaned derivative of a larger private research archive on epistemic generalization in AI agents.
+This public release is a cleaned derivative of a larger private research archive on epistemic generalization in AI agents.
 
 The private archive contains:
 - abandoned and revised environment families;
@@ -14,7 +14,7 @@ Those materials are intentionally omitted here to keep the public artifact focus
 
 ## Publicly retained components
 
-The release candidate retains only:
+The public release retains only:
 - the final Order-Necessity implementation;
 - the positive control;
 - DCR as a nonrepresentable-but-cheap negative example;
@@ -35,8 +35,8 @@ The clean public presentation preserves these constraints:
 
 ## Reproduction status
 
-The staged code was smoke-tested against retained reference values:
+The public code was smoke-tested against retained reference values:
 - ORDER_KEY_v1 gap: `0.5`;
 - DCR frozen-grid maximum: `0.018933608625138487`.
 
-This public candidate should be treated as a methodological snapshot, not as a peer-reviewed publication.
+This repository should be treated as a methodological snapshot, not as a peer-reviewed publication.
