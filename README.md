@@ -1,6 +1,6 @@
 # Order-Necessity Gate for Adaptive Information Seeking
 
-**Status:** public-release candidate  
+**Status:** public release v0.1  
 **Type:** methodological research artifact  
 **Scope:** finite-horizon adaptive information seeking with binary observations  
 **Novelty claim:** none
@@ -84,8 +84,8 @@ python tests/smoke_test.py
 
 Expected final line:
 
-```
-PASS 0.5 (0.018933608625138487, 0.8, 0.95, 0.1)
+```text
+PASS {'order_key_gap': 0.5, 'dcr_max': (0.018933608625138487, 0.8, 0.95, 0.1), 'k2_gap': 0.0, 'regime_gap': 0.0}
 ```
 
 This verifies:
@@ -117,10 +117,10 @@ docs/
   RESULTS.md
   LIMITATIONS.md
   PROVENANCE.md
+  VALIDATION.md
 
 requirements.txt
-PUBLICATION_CHECKLIST.md
-LICENSE_DECISION_REQUIRED.md
+LICENSE
 ```
 
 ## Suggested prospective screening order
@@ -133,10 +133,10 @@ The purpose is to eliminate structurally uninformative environments before spend
 
 ## Reproducibility note
 
-The public-release code is a cleaned, self-contained extraction of the frozen Order-Necessity implementation and the final structural analysis. It deliberately omits the long internal history of abandoned candidate families and archival recovery work.
+The public code is a cleaned, self-contained extraction of the frozen Order-Necessity implementation and the final structural analysis. It deliberately omits the long internal history of abandoned candidate families and archival recovery work.
 
-The cleaned implementation was smoke-tested against the retained reference values before being staged for release.
+The implementation was smoke-tested against the retained reference values. See `docs/VALIDATION.md`.
 
 ## License
 
-No public license has been selected yet. See `LICENSE_DECISION_REQUIRED.md`.
+MIT. See `LICENSE`.
