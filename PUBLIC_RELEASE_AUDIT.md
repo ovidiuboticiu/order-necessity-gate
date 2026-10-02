@@ -104,3 +104,30 @@ Suggested sequence:
 6. only then switch private -> public.
 
 The original full research repository should remain private as the provenance archive.
+
+
+## Destination-repository verification — 2 October 2026
+
+Repository:
+
+`ovidiuboticiu/order-necessity-gate`
+
+Verification performed after transfer:
+
+- repository visibility: **private**;
+- 16/16 staged files transferred;
+- Git blob SHA comparison against the staged candidate: **16/16 exact matches**;
+- smoke test rerun after transfer: **PASS**.
+
+Observed result:
+
+`PASS {'order_key_gap': 0.5, 'dcr_max': (0.018933608625138487, 0.8, 0.95, 0.1), 'k2_gap': 0.0, 'regime_gap': 0.0}`
+
+Remaining blockers before public visibility:
+
+1. select and add a license;
+2. optionally set repository description/topics in GitHub;
+3. perform one rendered-README visual inspection;
+4. switch `private -> public`.
+
+No scientific or reproducibility blocker remains in the cleaned repository.
