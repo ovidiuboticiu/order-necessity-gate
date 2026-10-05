@@ -88,10 +88,11 @@ Requirements:
 python -m pip install -r requirements.txt
 ```
 
-Run the smoke test:
+Run the smoke test and public-data integrity check:
 
 ```bash
 python tests/smoke_test.py
+python tests/data_integrity_test.py
 ```
 
 Expected final line:
@@ -118,6 +119,7 @@ examples/
 
 tests/
   smoke_test.py
+  data_integrity_test.py
 
 data/
   dcr_grid.csv
@@ -148,7 +150,7 @@ The purpose is to eliminate structurally uninformative environments before spend
 
 The public code is a cleaned, self-contained extraction of the frozen Order-Necessity implementation and the final structural analysis. It deliberately omits the long internal history of abandoned candidate families and archival recovery work.
 
-The implementation was smoke-tested against the retained reference values. The complete 26-point historical REGIME high-proxy set supporting the `26/26` zero-gap statement is published in `data/regime_high_proxy_26.json`. See `docs/VALIDATION.md`.
+The implementation was smoke-tested against the retained reference values. The complete 26-point historical REGIME high-proxy set supporting the `26/26` zero-gap statement is published in `data/regime_high_proxy_26.json`. The 2026-10-05 public-data corrections are documented in `docs/CORRECTIONS_2026-10-05.md`. See `docs/VALIDATION.md`.
 
 ## AI assistance
 
