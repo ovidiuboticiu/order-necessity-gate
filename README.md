@@ -1,9 +1,21 @@
 # Order-Necessity Gate for Adaptive Information Seeking
 
+**A structural test for a simple question: does an adaptive system truly need the order of its past observations, or would a compressed count-based history be enough?**
+
 **Status:** public release v0.1  
 **Type:** methodological research artifact  
 **Scope:** finite-horizon adaptive information seeking with binary observations  
 **Novelty claim:** none
+
+## In one minute
+
+Imagine two histories containing the same observations but in a different order. If both can always lead to an equally good next decision, then the apparent order sensitivity is not actually necessary. If compressing those histories together forces a measurable loss, order really matters.
+
+The **Order-Necessity Gate** measures that loss by comparing the unrestricted optimum with the best policy that only sees a compressed action-observation count statistic.
+
+**Main empirical picture.** The positive control produced an `OrderNecessityGap` of **0.5 bits**. Earlier K2 and REGIME cases that looked order-sensitive produced a gap of **0**, while the frozen DCR grid reached only about **0.0189 bits**.
+
+**Practical use.** This gate is intended to screen candidate environments *before* spending compute on a neural agent. It can reveal that a supposedly order-dependent task is structurally solvable without retaining ordered history.
 
 ## Why this exists
 
