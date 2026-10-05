@@ -132,6 +132,7 @@ docs/
   VALIDATION.md
 
 requirements.txt
+AI_USE.md
 LICENSE
 ```
 
@@ -147,7 +148,11 @@ The purpose is to eliminate structurally uninformative environments before spend
 
 The public code is a cleaned, self-contained extraction of the frozen Order-Necessity implementation and the final structural analysis. It deliberately omits the long internal history of abandoned candidate families and archival recovery work.
 
-The implementation was smoke-tested against the retained reference values. See `docs/VALIDATION.md`.
+The implementation was smoke-tested against the retained reference values. The complete 26-point historical REGIME high-proxy set supporting the `26/26` zero-gap statement is published in `data/regime_high_proxy_26.json`. See `docs/VALIDATION.md`.
+
+## AI assistance
+
+This project was developed with substantial AI assistance. See `AI_USE.md` for the contribution and responsibility disclosure.
 
 ## License
 
