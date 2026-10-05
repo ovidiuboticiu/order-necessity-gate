@@ -36,6 +36,8 @@ Under the stronger restricted-policy control:
 - 26/26 old high-proxy points are on-policy representable in `Pi_S`;
 - therefore their exact `OrderNecessityGap = 0`.
 
+The complete retained 26-point table is now public in `data/regime_high_proxy_26.json`. For every row, the constructed count-based policy matches `IG_opt` to float64 precision; the maximum absolute recorded `loss_vs_opt` is approximately `8.88e-16`.
+
 Representative case:
 
 - `hi=.95, lo=.50, r=.95, h=.12, W=5`;
