@@ -27,3 +27,11 @@ python tests/data_integrity_test.py
 ```
 
 This correction changes public inspectability and one CSV schema defect; it does not create a new agent result or broaden the scientific claim.
+
+## MILP certification guard
+
+A later adversarial audit found that the original public solver wrapper rejected a MILP result only when `result.fun is None`. A time-limited or otherwise unsuccessful solve can still return a feasible incumbent objective, so the wrapper could have reported that incumbent as `IG_best_SA` and then as a point-valued `OrderNecessityGap` without an optimality certificate.
+
+The implementation now requires solver success, optimal status, a finite dual bound, and a finite MIP gap within the requested tolerance before accepting a point-valued restricted optimum. Otherwise it raises an error rather than certifying order necessity.
+
+The already-published example values are unchanged; this correction hardens the method for future/conflict cases. See `tests/solver_certification_test.py` and `docs/VALIDATION.md`.
