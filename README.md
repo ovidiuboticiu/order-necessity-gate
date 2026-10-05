@@ -2,10 +2,12 @@
 
 **A structural test for a simple question: does an adaptive system truly need the order of its past observations, or would a compressed count-based history be enough?**
 
-**Status:** public release v0.1  
+**Status:** public release v0.1.1  
 **Type:** methodological research artifact  
 **Scope:** finite-horizon adaptive information seeking with binary observations  
 **Novelty claim:** none
+
+**Correction release:** v0.1.1 fixes one malformed K2 CSV row, publishes the complete retained 26-point REGIME evidence table, adds a data-integrity test, and adds the AI-assistance disclosure. Scientific conclusions are unchanged.
 
 ## In one minute
 
