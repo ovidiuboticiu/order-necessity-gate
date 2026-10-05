@@ -9,6 +9,7 @@ Run:
 ```bash
 python tests/smoke_test.py
 python tests/data_integrity_test.py
+python tests/solver_certification_test.py
 ```
 
 Expected result:
@@ -28,7 +29,7 @@ The smoke test checks four representative cases:
 
 The public code is self-contained and does not depend on:
 - private repository paths;
-- local `/mnt/data` paths;
+- local temporary-workspace paths;
 - historical ZIP bundles;
 - uncommitted result files.
 
@@ -43,3 +44,15 @@ Passing the smoke test validates consistency with the retained reference calcula
 `tests/data_integrity_test.py` checks that `data/k2_results.csv` has the complete 11-column schema on all 15 rows and that `data/regime_high_proxy_26.json` contains all 26 retained high-proxy REGIME rows with count-policy loss versus optimum within `1e-12`.
 
 See `CORRECTIONS_2026-10-05.md` for the correction history.
+
+## Solver certification
+
+For cases with on-policy conflicts, `best_SA_policy_milp` now requires all of the following before a point-valued optimum is accepted:
+
+- `result.success == True`;
+- solver `status == 0`;
+- a finite `mip_gap` no larger than the requested tolerance (plus numerical epsilon);
+- a finite `mip_dual_bound`;
+- non-null primal solution and objective.
+
+An interrupted/time-limited solve with a feasible incumbent is rejected rather than reported as the exact restricted optimum. `tests/solver_certification_test.py` contains regression cases for this failure mode, while `tests/smoke_test.py` asserts certificates on the published MILP-based examples.

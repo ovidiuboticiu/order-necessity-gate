@@ -2,12 +2,12 @@
 
 **A structural test for a simple question: does an adaptive system truly need the order of its past observations, or would a compressed count-based history be enough?**
 
-**Status:** public release v0.1.1  
+**Status:** correction release prepared as v0.1.2  
 **Type:** methodological research artifact  
 **Scope:** finite-horizon adaptive information seeking with binary observations  
 **Novelty claim:** none
 
-**Correction release:** v0.1.1 fixes one malformed K2 CSV row, publishes the complete retained 26-point REGIME evidence table, adds a data-integrity test, and adds the AI-assistance disclosure. Scientific conclusions are unchanged.
+**Correction release:** v0.1.2 additionally hardens the MILP path: a point-valued `OrderNecessityGap` is reported only when the solver returns a certified optimum within the requested MIP-gap tolerance. The published example values are unchanged.
 
 ## In one minute
 
@@ -18,6 +18,8 @@ The **Order-Necessity Gate** measures that loss by comparing the unrestricted op
 **Main empirical picture.** The positive control produced an `OrderNecessityGap` of **0.5 bits**. Earlier K2 and REGIME cases that looked order-sensitive produced a gap of **0**, while the frozen DCR grid reached only about **0.0189 bits**.
 
 **Practical use.** This gate is intended to screen candidate environments *before* spending compute on a neural agent. It can reveal that a supposedly order-dependent task is structurally solvable without retaining ordered history.
+
+**Solver-safety note.** For conflict cases, the implementation now refuses to report a point-valued gap unless SciPy/HiGHS reports a successful optimal solve, a finite dual bound, and a finite MIP gap no larger than the requested tolerance. A feasible incumbent from an interrupted solve is not treated as the optimum.
 
 ## Why this exists
 
@@ -95,6 +97,7 @@ Run the smoke test and public-data integrity check:
 ```bash
 python tests/smoke_test.py
 python tests/data_integrity_test.py
+python tests/solver_certification_test.py
 ```
 
 Expected final line:
@@ -122,11 +125,13 @@ examples/
 tests/
   smoke_test.py
   data_integrity_test.py
+  solver_certification_test.py
 
 data/
   dcr_grid.csv
   k2_results.csv
   regime_controls.csv
+  regime_high_proxy_26.json
 
 docs/
   METHOD.md

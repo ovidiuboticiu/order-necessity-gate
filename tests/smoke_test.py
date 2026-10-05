@@ -14,10 +14,14 @@ key=order_necessity_gap(ORDER_KEY_v1(),time_limit=60,mip_rel_gap=1e-10)
 assert abs(key['IG_opt']-1.0)<=1e-9
 assert abs(key['IG_best_SA']-.5)<=1e-9
 assert abs(key['OrderNecessityGap']-.5)<=1e-9
+assert key['solver_certified_optimal'] is True
+assert key['mip_gap']<=1e-10
 
 best=None
 for r,q,h in itertools.product((.65,.80,.95),(.65,.80,.95),(.10,.25,.40)):
     z=order_necessity_gap(DCR(r,q,h),time_limit=60,mip_rel_gap=1e-10)
+    assert z['solver_certified_optimal'] is True
+    assert z['mip_gap']<=1e-10
     row=(z['OrderNecessityGap'],r,q,h)
     if best is None or row>best:
         best=row
