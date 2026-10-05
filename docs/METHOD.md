@@ -4,7 +4,7 @@
 
 Let `h_t` be the full ordered interaction history before probe decision `t`.
 
-Let the terminal binary target be `Y).
+Let the terminal binary target be `Y`.
 
 Define terminal cost:
 
