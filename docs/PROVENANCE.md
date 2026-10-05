@@ -19,6 +19,7 @@ The public release retains only:
 - the positive control;
 - DCR as a nonrepresentable-but-cheap negative example;
 - compact K2/DCR result tables;
+- the complete retained 26-point REGIME high-proxy count-policy table (`data/regime_high_proxy_26.json`), copied from the source research archive to make the public `26/26` claim directly inspectable;
 - the Bellman-regret interpretation;
 - explicit limitations.
 
