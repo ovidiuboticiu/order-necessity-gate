@@ -83,6 +83,38 @@ def onpolicy_conflict_certificate(M,n_actions=3):
         'zero_conflict_certificate':total==0
     }
 
+def _require_certified_milp_result(result, requested_mip_rel_gap):
+    if result.fun is None or result.x is None:
+        raise RuntimeError(f'MILP returned no usable solution: {result.message}')
+
+    success=bool(result.success)
+    status=int(result.status)
+    mip_gap=getattr(result,'mip_gap',None)
+    dual_bound=getattr(result,'mip_dual_bound',None)
+
+    if not success or status!=0:
+        raise RuntimeError(
+            'MILP result is not certified optimal: '
+            f'success={success}, status={status}, message={result.message}'
+        )
+    if mip_gap is None or not np.isfinite(float(mip_gap)):
+        raise RuntimeError('MILP result lacks a finite mip_gap certificate')
+    if float(mip_gap)>float(requested_mip_rel_gap)+1e-12:
+        raise RuntimeError(
+            'MILP optimality gap exceeds requested tolerance: '
+            f'{mip_gap} > {requested_mip_rel_gap}'
+        )
+    if dual_bound is None or not np.isfinite(float(dual_bound)):
+        raise RuntimeError('MILP result lacks a finite dual bound')
+
+    return {
+        'success':success,
+        'status':status,
+        'mip_gap':float(mip_gap),
+        'mip_dual_bound':float(dual_bound),
+    }
+
+
 def best_SA_policy_milp(M,n_actions=3,time_limit=120.0,mip_rel_gap=1e-10):
     W=M.W
     by_depth,pred,terminal_entropy,_=enumerate_environment(M,n_actions)
@@ -154,8 +186,7 @@ def best_SA_policy_milp(M,n_actions=3,time_limit=120.0,mip_rel_gap=1e-10):
         constraints=LinearConstraint(A.tocsr(),np.asarray(los),np.asarray(his)),
         options={'time_limit':time_limit,'mip_rel_gap':mip_rel_gap,'presolve':True}
     )
-    if result.fun is None:
-        raise RuntimeError(f'MILP failed: {result.message}')
+    cert=_require_certified_milp_result(result,mip_rel_gap)
     ig_best=float(H0(M)-result.fun)
     chosen={}
     if result.x is not None:
@@ -163,13 +194,14 @@ def best_SA_policy_milp(M,n_actions=3,time_limit=120.0,mip_rel_gap=1e-10):
             vals=[result.x[y_idx[(s,a)]] for a in range(n_actions)]
             chosen[s]=int(np.argmax(vals))
     return {
-        'success':bool(result.success),
-        'status':int(result.status),
+        'success':cert['success'],
+        'status':cert['status'],
+        'solver_certified_optimal':True,
         'message':str(result.message),
         'objective_entropy':float(result.fun),
-        'mip_dual_bound':getattr(result,'mip_dual_bound',None),
+        'mip_dual_bound':cert['mip_dual_bound'],
         'IG_best_SA':ig_best,
-        'mip_gap':getattr(result,'mip_gap',None),
+        'mip_gap':cert['mip_gap'],
         'mip_node_count':getattr(result,'mip_node_count',None),
         'n_variables':nvar,
         'n_constraints':len(rows),
@@ -199,5 +231,5 @@ def order_necessity_gap(M,solve_if_conflict=True,n_actions=3,**milp_kwargs):
         **{k:v for k,v in sol.items() if k!='policy'},
         'OrderNecessityGap':cert['IG_opt']-sol['IG_best_SA'],
         'policy':sol['policy'],
-        'method':'global MILP after conflict'
+        'method':'global MILP with certified optimum after conflict'
     }
